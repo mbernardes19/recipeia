@@ -4,23 +4,28 @@ import AddIconSmall from '../assets/AddIconSmall';
 import CancelIcon from '../assets/CancelIcon';
 import {launchImageLibrary} from 'react-native-image-picker';
 
-const ImageFormField = () => {
+const ImageFormField = ({onImageChange}) => {
   const [selectedImage, setSelectedImage] = useState();
 
   const openImageLibrary = async () => {
-    const {didCancel, errorCode, errorMessage, assets} =
-      await launchImageLibrary();
+    try {
+      const {didCancel, errorCode, errorMessage, assets} =
+        await launchImageLibrary({mediaType: 'photo'});
 
-    if (
-      (!didCancel || !errorCode || !errorMessage) &&
-      assets[0].type.includes('image')
-    ) {
+      if (didCancel || errorCode || errorMessage) {
+        return;
+      }
+
       setSelectedImage(assets[0]);
+      onImageChange && onImageChange(assets[0].uri);
+    } catch (err) {
+      console.log('Error while loading image', err);
     }
   };
 
   const clearImage = () => {
     setSelectedImage(null);
+    onImageChange && onImageChange(null);
   };
 
   const renderImage = () => {

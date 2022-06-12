@@ -11,7 +11,7 @@ const App = () => {
         await initDB();
         await initStore();
       } catch (err) {
-        console.error(err);
+        console.error('Failed to initialize store or DB', err);
       }
     }
     initialize();

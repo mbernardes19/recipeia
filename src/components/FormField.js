@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, TextInput, Text, StyleSheet} from 'react-native';
 
-const FormField = ({label, helperText, multiline}) => (
+const FormField = ({label, helperText, multiline, onTextChange}) => (
   <View style={styles.container}>
     <Text style={styles.formLabel}>{label}</Text>
     <TextInput
       style={styles.input}
       multiline={multiline}
       numberOfLines={multiline ? 6 : 1}
+      onChangeText={text => onTextChange && onTextChange(text)}
     />
     {helperText && <Text style={styles.helperText}>{helperText}</Text>}
   </View>

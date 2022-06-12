@@ -2,8 +2,8 @@ import React from 'react';
 import {ScrollView, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import RecipeTile from './RecipeTile';
 
-const RecipeList = ({recipes, viewAllHandler}) => {
-  const recipesSlice = viewAllHandler ? recipes.slice(0, 4) : recipes;
+const RecipeList = ({recipes, onViewAll}) => {
+  const recipesSlice = onViewAll ? recipes.slice(0, 4) : recipes;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -15,8 +15,8 @@ const RecipeList = ({recipes, viewAllHandler}) => {
           imageUrl={image}
         />
       ))}
-      {viewAllHandler && (
-        <TouchableOpacity onPress={viewAllHandler}>
+      {onViewAll && recipes.length > 4 && (
+        <TouchableOpacity onPress={onViewAll}>
           <Text style={styles.showAllBtn}>Ver todas</Text>
         </TouchableOpacity>
       )}

@@ -5,60 +5,27 @@ import Header from '../components/Header';
 import RecipeList from '../components/RecipeList';
 import ActionButton from '../components/ActionButton';
 import CreateRecipe from '../components/CreateRecipe';
+import {useRecipeStore} from '../store/recipe';
 
-const recipes = [
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-];
+const HomeScreen = ({navigation}) => {
+  const recipes = useRecipeStore(state => state.recipes);
 
-const HomeScreen = ({navigation}) => (
-  <View style={styles.container}>
-    <ScrollView style={styles.scrollContainer}>
-      <SearchInput />
-      <Header title="Últimas receitas" />
-      <RecipeList
-        recipes={recipes}
-        viewAllHandler={() => navigation.navigate('Recipes')}
-      />
-      <Header title="Criar receita" />
-      <CreateRecipe />
-      <ActionButton title="Fazer lista de mercado" />
-    </ScrollView>
-  </View>
-);
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollContainer}>
+        <SearchInput />
+        <Header title="Últimas receitas" />
+        <RecipeList
+          recipes={recipes}
+          onViewAll={() => navigation.navigate('Recipes')}
+        />
+        <Header title="Criar receita" />
+        <CreateRecipe onClick={() => navigation.navigate('CreateRecipe')} />
+        <ActionButton title="Fazer lista de mercado" />
+      </ScrollView>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

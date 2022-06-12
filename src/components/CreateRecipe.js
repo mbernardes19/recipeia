@@ -2,11 +2,8 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import AddIcon from '../assets/AddIcon';
 
-const CreateRecipe = () => (
-  <TouchableOpacity
-    style={styles.container}
-    onPress={() => console.log('hello')}
-  >
+const CreateRecipe = ({onClick}) => (
+  <TouchableOpacity style={styles.container} onPress={onClick}>
     <AddIcon />
   </TouchableOpacity>
 );

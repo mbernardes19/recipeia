@@ -22,8 +22,8 @@ export const initDB = async () => {
           }
         })
         .then(() => db)
-        .catch(() => {
-          throw new Error(`Unable to initialize tables || ${err}`);
+        .catch(er => {
+          throw new Error(`Unable to initialize tables || ${er.message}`);
         });
     }
   } catch (err) {
@@ -47,4 +47,13 @@ const createTable = async (tx, table, tableName) => {
 
 export const getAll = async tableName => {
   return await db.executeSql(`SELECT * FROM ${tableName}`);
+};
+
+export const create = async (tableName, tableColumns, rows) => {
+  console.log('ROWS', rows);
+  return await db.executeSql(
+    `INSERT INTO ${tableName} (${tableColumns.join(', ')}) VALUES (${rows
+      .map(row => `'${row}'`)
+      .join(', ')})`,
+  );
 };

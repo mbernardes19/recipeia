@@ -1,3 +1,6 @@
+import 'react-native-get-random-values';
+import {v4 as uuidv4} from 'uuid';
+
 export const Types = {
   INTEGER: {
     value: 'INTEGER',
@@ -18,7 +21,7 @@ export const Tables = {
     id: {
       type: Types.TEXT,
       primaryKey: true,
-      defaultValue: null,
+      defaultValue: false,
     },
     title: {
       type: Types.TEXT,
@@ -43,12 +46,12 @@ export const Tables = {
     created: {
       type: Types.DATETIME,
       primaryKey: false,
-      defaultValue: new Date().toISOString(),
+      defaultValue: false,
     },
     updated: {
       type: Types.DATETIME,
       primaryKey: false,
-      defaultValue: new Date().toISOString(),
+      defaultValue: false,
     },
   },
 };

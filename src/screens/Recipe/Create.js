@@ -1,53 +1,85 @@
-import React from 'react';
+/* eslint-disable no-undef */
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
+import ActionButton from '../../components/ActionButton';
 import Header from '../../components/Header';
+import ImageFormField from '../../components/ImageFormField';
+import FormField from '../../components/FormField';
+import {useRecipeStore} from '../../store/recipe';
 
-const recipes = [
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-];
+const initialRecipe = {
+  title: '',
+  image: '',
+  ingredients: '',
+  instructions: '',
+};
 
-const HomeScreen = () => (
-  <View style={styles.container}>
-    <ScrollView style={styles.scrollContainer}>
-      <Header title="Últimas receitas" />
-      <Header title="Criar receita" />
-    </ScrollView>
-  </View>
-);
+const CreateRecipeScreen = ({navigation}) => {
+  const [newRecipe, setNewRecipe] = useState(initialRecipe);
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
+  const createRecipe = useRecipeStore(state => state.createRecipe);
+
+  useEffect(() => {
+    const validateForm = () => {
+      for (field in newRecipe) {
+        if (!newRecipe[field]) {
+          return false;
+        }
+      }
+
+      return true;
+    };
+
+    setSubmitButtonDisabled(!validateForm());
+  }, [newRecipe]);
+
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollContainer}>
+        <Header
+          title="Nova receita"
+          goBackHandler={() => navigation.goBack()}
+        />
+        <ImageFormField
+          onImageChange={image => setNewRecipe({...newRecipe, image})}
+        />
+        <FormField
+          label="Título"
+          onTextChange={title => setNewRecipe({...newRecipe, title})}
+        />
+        <FormField
+          label="Ingredientes"
+          onTextChange={ingredients =>
+            setNewRecipe({...newRecipe, ingredients})
+          }
+          helperText="Insira um ingrediente por linha"
+          multiline
+        />
+        <FormField
+          label="Instruções"
+          onTextChange={instructions =>
+            setNewRecipe({...newRecipe, instructions})
+          }
+          helperText="Insira uma instrução por linha"
+          multiline
+        />
+        <ActionButton
+          title="Criar receita"
+          onClick={async () => {
+            try {
+              await createRecipe(newRecipe);
+              navigation.navigate('Home');
+            } catch (err) {
+              console.error(`Failed to create recipe ${newRecipe.title}`, err);
+            }
+          }}
+          disabled={submitButtonDisabled}
+        />
+      </ScrollView>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -59,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default CreateRecipeScreen;
