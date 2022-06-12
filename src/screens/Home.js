@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import SearchInput from '../components/SearchInput';
 import Header from '../components/Header';
 import RecipeList from '../components/RecipeList';
+import ActionButton from '../components/ActionButton';
 
 const recipes = [
   {
@@ -44,14 +45,21 @@ const recipes = [
 
 const HomeScreen = () => (
   <View style={styles.container}>
-    <SearchInput />
-    <Header title="Últimas receitas" />
-    <RecipeList recipes={recipes} />
+    <ScrollView style={styles.scrollContainer}>
+      <SearchInput />
+      <Header title="Últimas receitas" />
+      <RecipeList recipes={recipes} />
+      <Header title="Criar receita" />
+    </ScrollView>
+    <ActionButton title="Fazer lista de mercado" />
   </View>
 );
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  scrollContainer: {
     flex: 1,
     padding: 10,
     backgroundColor: '#fff',
