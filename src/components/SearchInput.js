@@ -18,7 +18,6 @@ const SearchInput = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    marginBottom: 40,
   },
   icon: {
     position: 'absolute',

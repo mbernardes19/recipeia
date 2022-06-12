@@ -1,9 +1,9 @@
 import React from 'react';
-import {ScrollView, Text, StyleSheet} from 'react-native';
+import {ScrollView, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import RecipeTile from './RecipeTile';
 
-const RecipeList = ({recipes}) => {
-  const recipesSlice = recipes.slice(0, 4);
+const RecipeList = ({recipes, viewAllHandler}) => {
+  const recipesSlice = viewAllHandler ? recipes.slice(0, 4) : recipes;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -15,7 +15,11 @@ const RecipeList = ({recipes}) => {
           imageUrl={image}
         />
       ))}
-      {recipes.length > 4 && <Text style={styles.showAllBtn}>Ver todas</Text>}
+      {viewAllHandler && (
+        <TouchableOpacity onPress={viewAllHandler}>
+          <Text style={styles.showAllBtn}>Ver todas</Text>
+        </TouchableOpacity>
+      )}
     </ScrollView>
   );
 };

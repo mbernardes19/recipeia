@@ -1,10 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import SearchInput from '../components/SearchInput';
-import Header from '../components/Header';
-import RecipeList from '../components/RecipeList';
-import ActionButton from '../components/ActionButton';
-import CreateRecipe from '../components/CreateRecipe';
+import Header from '../../components/Header';
+import RecipeList from '../../components/RecipeList';
 
 const recipes = [
   {
@@ -44,18 +41,11 @@ const recipes = [
   },
 ];
 
-const HomeScreen = ({navigation}) => (
+const ListRecipesScreen = ({navigation}) => (
   <View style={styles.container}>
     <ScrollView style={styles.scrollContainer}>
-      <SearchInput />
-      <Header title="Últimas receitas" />
-      <RecipeList
-        recipes={recipes}
-        viewAllHandler={() => navigation.navigate('Recipes')}
-      />
-      <Header title="Criar receita" />
-      <CreateRecipe />
-      <ActionButton title="Fazer lista de mercado" />
+      <Header title="Receitas" goBackHandler={() => navigation.goBack()} />
+      <RecipeList recipes={recipes} />
     </ScrollView>
   </View>
 );
@@ -70,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default ListRecipesScreen;
