@@ -7,7 +7,9 @@ const Header = ({title, goBackHandler}) => {
     return (
       <TouchableOpacity style={styles.container} onPress={goBackHandler}>
         <BackIcon style={styles.backIcon} />
-        <Text style={styles.title}>{title}</Text>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{title}</Text>
+        </View>
       </TouchableOpacity>
     );
   }
@@ -30,7 +32,12 @@ const styles = StyleSheet.create({
   backIcon: {
     marginRight: 10,
   },
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
   title: {
+    flex: 1,
     fontSize: 18,
     color: '#000',
   },

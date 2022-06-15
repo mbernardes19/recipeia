@@ -3,6 +3,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/Home';
 import CreateRecipeScreen from '../screens/Recipe/Create';
 import RecipesScreen from '../screens/Recipe/List';
+import GrocerySelectionScreen from '../screens/Grocery/Selection';
+import GroceryListScreen from '../screens/Grocery/List';
 import SearchInput from '../components/SearchInput';
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +26,12 @@ const DefaultNavigator = () => (
     <Stack.Screen
       name="Recipes"
       component={RecipesScreen}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen name="GrocerySelection" component={GrocerySelectionScreen} />
+    <Stack.Screen
+      name="GroceryList"
+      component={GroceryListScreen}
       options={{headerShown: false}}
     />
   </Stack.Navigator>

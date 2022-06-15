@@ -6,6 +6,10 @@ export const useRecipeStore = create(set => ({
   foundRecipes: [],
   searchTerm: '',
   searchStarted: false,
+  selectedRecipes: [],
+  selectRecipe: recipe => {
+    set(state => ({selectedRecipes: [...state.selectedRecipes, recipe]}));
+  },
   clearSearchTerm: () => {
     set(() => ({searchStarted: false, searchTerm: ''}));
   },

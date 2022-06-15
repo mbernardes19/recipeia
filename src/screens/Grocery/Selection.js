@@ -1,12 +1,11 @@
 import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import Header from '../components/Header';
-import RecipeList from '../components/RecipeList';
-import ActionButton from '../components/ActionButton';
-import CreateRecipe from '../components/CreateRecipe';
-import {useRecipeStore} from '../store/recipe';
+import Header from '../../components/Header';
+import RecipeList from '../../components/RecipeList';
+import ActionButton from '../../components/ActionButton';
+import {useRecipeStore} from '../../store/recipe';
 
-const mockRecipes = [
+const recipes = [
   {
     title: 'Omelete de frango',
     ingredients:
@@ -44,41 +43,21 @@ const mockRecipes = [
   },
 ];
 
-const HomeScreen = ({navigation}) => {
-  const recipes = useRecipeStore(state => state.recipes);
-  const searchStarted = useRecipeStore(state => state.searchStarted);
-  const foundRecipes = useRecipeStore(state => state.foundRecipes);
-  const clearSearchTerm = useRecipeStore(state => state.clearSearchTerm);
-
-  if (searchStarted) {
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollContainer}>
-          <Header
-            title="Receitas encontradas"
-            goBackHandler={() => {
-              clearSearchTerm();
-            }}
-          />
-          <RecipeList recipes={foundRecipes} />
-        </ScrollView>
-      </View>
-    );
-  }
+const GrocerySelectionScreen = ({navigation}) => {
+  const selectedRecipes = useRecipeStore(state => state.selectedRecipes);
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
-        <Header title="Últimas receitas" />
-        <RecipeList
-          recipes={mockRecipes}
-          onViewAll={() => navigation.navigate('Recipes')}
+        <Header
+          title="Selecione receitas para sua lista de mercado"
+          goBackHandler={() => navigation.goBack()}
         />
-        <Header title="Criar receita" />
-        <CreateRecipe onClick={() => navigation.navigate('CreateRecipe')} />
+        <RecipeList recipes={recipes} selectable />
         <ActionButton
-          title="Fazer lista de mercado"
-          onClick={() => navigation.navigate('GrocerySelection')}
+          title="Ir às compras"
+          disabled={selectedRecipes.length === 0}
+          onClick={() => navigation.navigate('GroceryList')}
         />
       </ScrollView>
     </View>
@@ -95,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default GrocerySelectionScreen;
