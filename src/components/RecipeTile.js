@@ -7,7 +7,9 @@ const RecipeTile = ({title, ingredients, imageUrl}) => (
     <View style={styles.info}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.ingredientsContainer}>
-        <Text style={styles.ingredients}>{ingredients}</Text>
+        <Text style={styles.ingredients}>
+          {ingredients.replace(/\n/g, ';').replace(/ /g, '')}
+        </Text>
       </View>
     </View>
   </View>

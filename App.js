@@ -1,10 +1,15 @@
 import React, {useEffect} from 'react';
 import {initDB} from './src/data/db';
 import {initStore} from './src/store';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
 import DefaultNavigator from './src/navigation/defaultNavigator';
 
 const App = () => {
+  const navigationRef = useNavigationContainerRef();
+
   useEffect(() => {
     async function initialize() {
       try {
@@ -18,7 +23,7 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <DefaultNavigator />
     </NavigationContainer>
   );
