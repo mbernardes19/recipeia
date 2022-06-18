@@ -12,7 +12,7 @@ const GroceryListScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
-        <Header title="Lista de mercado" />
+        <Header title="Lista de mercado" layout="large" />
         <RecipeList recipes={valuesToArray(selectedRecipes)} ingredientsOnly />
         <ActionButton
           title="Finalizar compras"
@@ -25,7 +25,7 @@ const GroceryListScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'blue',
+    flex: 1,
   },
   scrollContainer: {
     padding: 10,

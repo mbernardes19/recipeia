@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import SearchIcon from '../assets/SearchIcon';
 import {useRecipeStore} from '../store/recipe';
@@ -7,8 +7,6 @@ const SearchInput = () => {
   const search = useRecipeStore(state => state.search);
   const searchTerm = useRecipeStore(state => state.searchTerm);
   const clearSearchTerm = useRecipeStore(state => state.clearSearchTerm);
-
-  const inputRef = useRef(null);
 
   useEffect(() => {
     if (!searchTerm) {
@@ -20,7 +18,6 @@ const SearchInput = () => {
     <View style={styles.container}>
       <SearchIcon style={styles.icon} />
       <TextInput
-        ref={inputRef}
         style={styles.input}
         placeholderTextColor="#9b9b9b"
         placeholder="Procurar por uma receita"
@@ -36,11 +33,13 @@ const SearchInput = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    padding: 10,
+    paddingBottom: 0,
   },
   icon: {
     position: 'absolute',
-    top: 17,
-    left: 11,
+    top: 27,
+    left: 21,
     zIndex: 1,
   },
   input: {

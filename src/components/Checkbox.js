@@ -1,20 +1,12 @@
-import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import CheckIcon from '../assets/CheckIcon';
 
-const Checkbox = ({onPress}) => {
-  const [checked, setChecked] = useState(false);
-
+const Checkbox = ({checked}) => {
   return (
-    <TouchableOpacity
-      style={styles.touchable}
-      onPress={() => {
-        setChecked(!checked);
-        onPress && onPress(!checked);
-      }}
-    >
+    <View style={styles.touchable}>
       {checked ? <CheckIcon /> : <CheckIcon opacity={0} />}
-    </TouchableOpacity>
+    </View>
   );
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import BackIcon from '../assets/BackIcon';
 
-const Header = ({title, goBackHandler}) => {
+const Header = ({title, goBackHandler, layout}) => {
   if (goBackHandler) {
     return (
       <TouchableOpacity style={styles.container} onPress={goBackHandler}>
@@ -11,6 +11,14 @@ const Header = ({title, goBackHandler}) => {
           <Text style={styles.title}>{title}</Text>
         </View>
       </TouchableOpacity>
+    );
+  }
+
+  if (layout === 'large') {
+    return (
+      <View style={styles.largeContainer}>
+        <Text style={styles.largeTitle}>{title}</Text>
+      </View>
     );
   }
 
@@ -40,6 +48,16 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     color: '#000',
+  },
+  largeTitle: {
+    flex: 1,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  largeContainer: {
+    marginTop: 20,
+    marginBottom: 30,
   },
 });
 

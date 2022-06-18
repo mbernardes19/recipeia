@@ -1,18 +1,20 @@
-import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
-import {useState} from 'react/cjs/react.development';
+import React, {useState} from 'react';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Checkbox from './Checkbox';
 
 const Ingredient = ({ingredient}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <Checkbox onPress={() => setIsChecked(!isChecked)} />
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => setIsChecked(!isChecked)}
+    >
+      <Checkbox checked={isChecked} />
       <Text style={isChecked ? styles.checked : styles.notChecked}>
         {ingredient}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
