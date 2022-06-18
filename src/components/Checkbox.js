@@ -10,7 +10,7 @@ const Checkbox = ({onPress}) => {
       style={styles.touchable}
       onPress={() => {
         setChecked(!checked);
-        onPress && onPress();
+        onPress && onPress(!checked);
       }}
     >
       {checked ? <CheckIcon /> : <CheckIcon opacity={0} />}

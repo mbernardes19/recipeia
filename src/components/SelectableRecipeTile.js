@@ -6,10 +6,19 @@ import {useRecipeStore} from '../store/recipe';
 
 const SelectableRecipeTile = ({recipe}) => {
   const selectRecipe = useRecipeStore(state => state.selectRecipe);
+  const unselectRecipe = useRecipeStore(state => state.unselectRecipe);
+
+  const checkRecipe = (selectedRecipe, isChecked) => {
+    if (isChecked) {
+      selectRecipe(selectedRecipe);
+    } else {
+      unselectRecipe(selectedRecipe.id);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Checkbox onPress={() => selectRecipe(recipe)} />
+      <Checkbox onPress={isChecked => checkRecipe(recipe, isChecked)} />
       <RecipeTile recipe={recipe} />
     </View>
   );

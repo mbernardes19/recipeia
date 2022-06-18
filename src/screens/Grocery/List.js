@@ -2,60 +2,30 @@ import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import Header from '../../components/Header';
 import RecipeList from '../../components/RecipeList';
+import {useRecipeStore} from '../../store/recipe';
+import ActionButton from '../../components/ActionButton';
+import {valuesToArray} from '../../utils/mapToArray';
 
-const recipes = [
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-];
+const GroceryListScreen = ({navigation}) => {
+  const selectedRecipes = useRecipeStore(state => state.selectedRecipes);
 
-const GroceryListScreen = ({navigation}) => (
-  <View style={styles.container}>
-    <ScrollView style={styles.scrollContainer}>
-      <Header
-        title="Selecione receitas para sua lista de mercado"
-        goBackHandler={() => navigation.goBack()}
-      />
-      <RecipeList recipes={recipes} />
-    </ScrollView>
-  </View>
-);
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollContainer}>
+        <Header title="Lista de mercado" />
+        <RecipeList recipes={valuesToArray(selectedRecipes)} ingredientsOnly />
+        <ActionButton
+          title="Finalizar compras"
+          onClick={() => navigation.navigate('Home')}
+        />
+      </ScrollView>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    backgroundColor: 'blue',
   },
   scrollContainer: {
     padding: 10,

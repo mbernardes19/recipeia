@@ -6,44 +6,6 @@ import ActionButton from '../components/ActionButton';
 import CreateRecipe from '../components/CreateRecipe';
 import {useRecipeStore} from '../store/recipe';
 
-const mockRecipes = [
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-];
-
 const HomeScreen = ({navigation}) => {
   const recipes = useRecipeStore(state => state.recipes);
   const searchStarted = useRecipeStore(state => state.searchStarted);
@@ -71,7 +33,7 @@ const HomeScreen = ({navigation}) => {
       <ScrollView style={styles.scrollContainer}>
         <Header title="Últimas receitas" />
         <RecipeList
-          recipes={mockRecipes}
+          recipes={recipes}
           onViewAll={() => navigation.navigate('Recipes')}
         />
         <Header title="Criar receita" />

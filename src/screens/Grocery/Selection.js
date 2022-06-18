@@ -4,47 +4,15 @@ import Header from '../../components/Header';
 import RecipeList from '../../components/RecipeList';
 import ActionButton from '../../components/ActionButton';
 import {useRecipeStore} from '../../store/recipe';
-
-const recipes = [
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-  {
-    title: 'Omelete de frango',
-    ingredients:
-      'Lorem ipsum dolor; sit amet consectetur; adipiscing elit; Donec condimentum et eros; ac aliquet. Suspendisse id neque eget; velit ultricies commodo.',
-    image:
-      'https://www.hojetemfrango.com.br/wp-content/uploads/2019/01/shutterstock_1154209327.jpg',
-  },
-];
+import shallow from 'zustand/shallow';
+import {keysToArray} from '../../utils/mapToArray';
 
 const GrocerySelectionScreen = ({navigation}) => {
-  const selectedRecipes = useRecipeStore(state => state.selectedRecipes);
+  const recipes = useRecipeStore(state => state.recipes);
+  const selectedRecipes = useRecipeStore(
+    state => keysToArray(state.selectedRecipes),
+    shallow,
+  );
 
   return (
     <View style={styles.container}>

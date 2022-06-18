@@ -6,9 +6,24 @@ export const useRecipeStore = create(set => ({
   foundRecipes: [],
   searchTerm: '',
   searchStarted: false,
-  selectedRecipes: [],
+  selectedRecipes: new Map(),
   selectRecipe: recipe => {
-    set(state => ({selectedRecipes: [...state.selectedRecipes, recipe]}));
+    set(state => {
+      const updatedSelectedRecipes = state.selectedRecipes;
+      updatedSelectedRecipes.set(recipe.id, recipe);
+      return {selectedRecipes: updatedSelectedRecipes};
+    });
+  },
+  unselectRecipe: recipeId => {
+    set(state => {
+      if (state.selectedRecipes.has(recipeId)) {
+        const updatedSelectedRecipes = state.selectedRecipes;
+        updatedSelectedRecipes.delete(recipeId);
+        return {selectedRecipes: updatedSelectedRecipes};
+      }
+
+      return {selectedRecipes: state.selectedRecipes};
+    });
   },
   clearSearchTerm: () => {
     set(() => ({searchStarted: false, searchTerm: ''}));
@@ -26,7 +41,8 @@ export const useRecipeStore = create(set => ({
     set({recipes: recipesFromDB});
   },
   createRecipe: async newRecipe => {
-    await createRecipe(newRecipe);
+    const recipeId = await createRecipe(newRecipe);
+    newRecipe.id = recipeId;
     set(state => ({recipes: [...state.recipes, newRecipe]}));
   },
 }));

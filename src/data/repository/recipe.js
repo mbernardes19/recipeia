@@ -13,8 +13,10 @@ export const loadRecipes = async () => {
 
 export const createRecipe = async recipe => {
   const recipeValues = Object.values(recipe);
-  recipeValues.unshift(uuidv4());
+  const recipeId = uuidv4();
+  recipeValues.unshift(recipeId);
   recipeValues.push(new Date().toISOString());
   recipeValues.push(new Date().toISOString());
   await create(tableName, tableColumns, recipeValues);
+  return recipeId;
 };

@@ -50,10 +50,11 @@ export const getAll = async tableName => {
 };
 
 export const create = async (tableName, tableColumns, rows) => {
-  console.log('ROWS', rows);
-  return await db.executeSql(
-    `INSERT INTO ${tableName} (${tableColumns.join(', ')}) VALUES (${rows
-      .map(row => `'${row}'`)
-      .join(', ')})`,
-  );
+  await db.transaction(tx => {
+    tx.executeSql(
+      `INSERT INTO ${tableName} (${tableColumns.join(', ')}) VALUES (${rows
+        .map(row => `'${row}'`)
+        .join(', ')})`,
+    );
+  });
 };
