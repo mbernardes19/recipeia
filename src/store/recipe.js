@@ -7,6 +7,22 @@ export const useRecipeStore = create(set => ({
   searchTerm: '',
   searchStarted: false,
   selectedRecipes: new Map(),
+  deleteRecipe: recipeId => {
+    set(state => {
+      const foundRecipeId = state.recipes.findIndex(
+        recipe => recipe.id === recipeId,
+      );
+
+      if (foundRecipeId) {
+        const updatedRecipes = [...state.recipes];
+        updatedRecipes.splice(foundRecipeId, 1);
+
+        return {recipes: updatedRecipes};
+      }
+
+      return {recipes: state.recipes};
+    });
+  },
   selectRecipe: recipe => {
     set(state => {
       const updatedSelectedRecipes = state.selectedRecipes;

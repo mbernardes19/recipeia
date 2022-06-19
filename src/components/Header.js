@@ -1,9 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import BackIcon from '../assets/BackIcon';
 import TrashIcon from '../assets/TrashIcon';
+import ConfirmationModal from './ConfirmationModal';
 
 const Header = ({title, goBackHandler, deleteButtonHandler, layout}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const renderDeleteButton = () => {
+    return (
+      <>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          <TrashIcon style={styles.deleteIcon} />
+        </TouchableOpacity>
+        <ConfirmationModal
+          isVisible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          prompt="Tem certeza de que deseja deletar esta receita?"
+          onConfirm={deleteButtonHandler}
+          onCancel={() => setModalVisible(false)}
+        />
+      </>
+    );
+  };
+
   if (goBackHandler) {
     return (
       <View style={styles.container}>
@@ -18,14 +43,7 @@ const Header = ({title, goBackHandler, deleteButtonHandler, layout}) => {
             {title}
           </Text>
         </TouchableOpacity>
-        {deleteButtonHandler && (
-          <TouchableOpacity
-            style={styles.deleteButton}
-            onPress={deleteButtonHandler}
-          >
-            <TrashIcon style={styles.deleteIcon} />
-          </TouchableOpacity>
-        )}
+        {deleteButtonHandler && renderDeleteButton()}
       </View>
     );
   }
@@ -41,25 +59,10 @@ const Header = ({title, goBackHandler, deleteButtonHandler, layout}) => {
           {title}
         </Text>
       </View>
-      {deleteButtonHandler && (
-        <TouchableOpacity
-          style={styles.deleteButton}
-          onPress={deleteButtonHandler}
-        >
-          <TrashIcon style={styles.deleteIcon} />
-        </TouchableOpacity>
-      )}
+      {deleteButtonHandler && renderDeleteButton()}
     </View>
   );
 };
-
-{
-  /* <View
-style={
-  layout === 'large' ? styles.largeContainer : styles.titleContainer
-}
-> */
-}
 
 const styles = StyleSheet.create({
   container: {

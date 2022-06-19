@@ -7,6 +7,7 @@ import {useRecipeStore} from '../../store/recipe';
 const RecipeDetailsScreen = ({route, navigation}) => {
   const {id} = route.params;
   const recipes = useRecipeStore(state => state.recipes);
+  const deleteRecipe = useRecipeStore(state => state.deleteRecipe);
   const recipe = recipes.find(rec => rec.id === id);
 
   return (
@@ -15,7 +16,10 @@ const RecipeDetailsScreen = ({route, navigation}) => {
         <Header
           title={recipe.title}
           goBackHandler={() => navigation.goBack()}
-          deleteButtonHandler={() => {}}
+          deleteButtonHandler={() => {
+            deleteRecipe(id);
+            navigation.navigate('Home');
+          }}
         />
         <RecipeDetails recipe={recipe} />
       </ScrollView>
