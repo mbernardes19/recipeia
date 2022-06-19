@@ -8,6 +8,10 @@ const RecipeList = ({recipes, selectable, onViewAll, ingredientsOnly}) => {
   const recipesSlice =
     onViewAll && recipes.length > 4 ? recipes.slice(0, 4) : recipes;
 
+  if (recipes.length === 0) {
+    return <Text style={styles.noRecipe}>Nenhuma receita disponível</Text>;
+  }
+
   if (ingredientsOnly) {
     return (
       <ScrollView
@@ -46,6 +50,10 @@ const styles = StyleSheet.create({
   },
   showAllBtn: {
     color: '#000',
+  },
+  noRecipe: {
+    fontSize: 20,
+    color: '#e3e3e3',
   },
 });
 
