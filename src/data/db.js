@@ -58,3 +58,7 @@ export const create = async (tableName, tableColumns, rows) => {
     );
   });
 };
+
+export const remove = async (tableName, idColumn, id) => {
+  await db.executeSql(`DELETE FROM ${tableName} WHERE ${idColumn} = '${id}'`);
+};

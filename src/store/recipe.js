@@ -1,5 +1,9 @@
 import create from 'zustand';
-import {loadRecipes, createRecipe} from '../data/repository/recipe';
+import {
+  loadRecipes,
+  createRecipe,
+  deleteRecipe,
+} from '../data/repository/recipe';
 
 export const useRecipeStore = create(set => ({
   recipes: [],
@@ -7,16 +11,16 @@ export const useRecipeStore = create(set => ({
   searchTerm: '',
   searchStarted: false,
   selectedRecipes: new Map(),
-  deleteRecipe: recipeId => {
+  deleteRecipe: async recipeId => {
+    await deleteRecipe(recipeId);
     set(state => {
-      const foundRecipeId = state.recipes.findIndex(
+      const foundRecipeIdx = state.recipes.findIndex(
         recipe => recipe.id === recipeId,
       );
 
-      if (foundRecipeId) {
+      if (foundRecipeIdx >= 0) {
         const updatedRecipes = [...state.recipes];
-        updatedRecipes.splice(foundRecipeId, 1);
-
+        updatedRecipes.splice(foundRecipeIdx, 1);
         return {recipes: updatedRecipes};
       }
 

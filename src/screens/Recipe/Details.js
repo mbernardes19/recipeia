@@ -17,8 +17,13 @@ const RecipeDetailsScreen = ({route, navigation}) => {
           title={recipe.title}
           goBackHandler={() => navigation.goBack()}
           deleteButtonHandler={() => {
-            deleteRecipe(id);
-            navigation.navigate('Home');
+            try {
+              deleteRecipe(id);
+            } catch (err) {
+              console.log('Unable to delete recipe', err);
+            } finally {
+              navigation.navigate('Home');
+            }
           }}
         />
         <RecipeDetails recipe={recipe} />
