@@ -14,8 +14,6 @@ const GrocerySelectionScreen = ({navigation}) => {
     shallow,
   );
 
-  console.log('selected recipes', selectedRecipes);
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>

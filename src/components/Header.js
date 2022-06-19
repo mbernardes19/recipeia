@@ -1,33 +1,65 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import BackIcon from '../assets/BackIcon';
+import TrashIcon from '../assets/TrashIcon';
 
-const Header = ({title, goBackHandler, layout}) => {
+const Header = ({title, goBackHandler, deleteButtonHandler, layout}) => {
   if (goBackHandler) {
     return (
-      <TouchableOpacity style={styles.container} onPress={goBackHandler}>
-        <BackIcon style={styles.backIcon} />
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-
-  if (layout === 'large') {
-    return (
-      <View style={styles.largeContainer}>
-        <Text style={styles.largeTitle}>{title}</Text>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={
+            layout === 'large' ? styles.largeContainer : styles.titleContainer
+          }
+          onPress={goBackHandler}
+        >
+          <BackIcon style={styles.backIcon} />
+          <Text style={layout === 'large' ? styles.largeTitle : styles.title}>
+            {title}
+          </Text>
+        </TouchableOpacity>
+        {deleteButtonHandler && (
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={deleteButtonHandler}
+          >
+            <TrashIcon style={styles.deleteIcon} />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <View
+        style={
+          layout === 'large' ? styles.largeContainer : styles.titleContainer
+        }
+      >
+        <Text style={layout === 'large' ? styles.largeTitle : styles.title}>
+          {title}
+        </Text>
+      </View>
+      {deleteButtonHandler && (
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={deleteButtonHandler}
+        >
+          <TrashIcon style={styles.deleteIcon} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
+
+{
+  /* <View
+style={
+  layout === 'large' ? styles.largeContainer : styles.titleContainer
+}
+> */
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -43,6 +75,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     flex: 1,
@@ -58,6 +91,13 @@ const styles = StyleSheet.create({
   largeContainer: {
     marginTop: 20,
     marginBottom: 30,
+  },
+  deleteButton: {
+    alignSelf: 'center',
+    paddingRight: 10,
+    paddingLeft: 20,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
 });
 

@@ -20,15 +20,14 @@ const SelectableRecipeTile = ({recipe}) => {
     checkRecipe(recipe);
   }, [isChecked, selectRecipe, unselectRecipe, recipe]);
 
+  const toggleCheckbox = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
-    <TouchableOpacity
-      onPress={() => {
-        setIsChecked(!isChecked);
-      }}
-      style={styles.container}
-    >
+    <TouchableOpacity onPress={toggleCheckbox} style={styles.container}>
       <Checkbox checked={isChecked} />
-      <RecipeTile recipe={recipe} />
+      <RecipeTile notClickable recipe={recipe} />
     </TouchableOpacity>
   );
 };
